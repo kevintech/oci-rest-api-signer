@@ -71,7 +71,7 @@ Create your wallet with auto-login
 orapki wallet create -wallet /home/oracle/wallet -pwd <your-password> -auto_login
 ```
 
-Add the [OCI Certificate](./objectstorage_us-ashburn-1_oraclecloud_com.p7b "OCI Certificate") to your wallet, this certificate includes all the levels
+Add the [OCI Certificate](./objectstorage_us-ashburn-1_oraclecloud_com.p7b "OCI Certificate") file to your wallet, this file includes all the 3 certificates
 ```bash
 orapki wallet add -wallet /home/oracle/wallet/ -trusted_cert -cert ./objectstorage_us-ashburn-1_oraclecloud_com.p7b -pwd <your-password>
 ```
@@ -81,8 +81,8 @@ Remove the end site certificate. [Please read this](https://stackoverflow.com/a/
 orapki wallet remove -wallet wallet -alias 'CN=objectstorage.us-ashburn-1.oraclecloud.com' -trusted_cert
 ```
 
-## Grant the connect and resolve privileges for host oraclecloud.com to your APEX user
-Create and assign a Network Access Control List (ACL)
+## Create and assign a Network Access Control List (ACL)
+Grant the connect and resolve privileges for host oraclecloud.com to your APEX user
 ```SQL
 DECLARE
   l_principal VARCHAR2(20) := 'APEX_180200';
@@ -139,7 +139,7 @@ commit;
 ```
 
 ## Example: listing buckets from OCI Object Store
-[OCI_OBJECTSTORAGE_LIST_BUCKETS.sql](./OCI_OBJECTSTORAGE_LIST_BUCKETS.sql "OCI_OBJECTSTORAGE_LIST_BUCKETS.sql"): Create a function receiving the identity_domain
+[OCI_OBJECTSTORAGE_LIST_BUCKETS.sql](./OCI_OBJECTSTORAGE_LIST_BUCKETS.sql "OCI_OBJECTSTORAGE_LIST_BUCKETS.sql"): Create a function receiving the identity domain name and namespace as parameters
 ```SQL
 set define off
 set serveroutput on size unlimited
@@ -198,6 +198,6 @@ end;
 
 ## Credits
 This guide is based on the following work:
-- Oracle Cloud Infrastructure (OCI) Advanced HTTP Signature for OCI REST API integration in PL/SQL [loiclefevre/dbone](https://github.com/loiclefevre/dbone/tree/master/oci-rest-api-signer)
+- [loiclefevre/dbone](https://github.com/loiclefevre/dbone/tree/master/oci-rest-api-signer): Oracle Cloud Infrastructure (OCI) Advanced HTTP Signature for OCI REST API integration in PL/SQL
 
 I fixed the Sign PUT Request method to exclude some headers in [special implementation cases](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/signingrequests.htm#five)
